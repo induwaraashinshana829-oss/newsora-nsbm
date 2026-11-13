@@ -1,0 +1,1 @@
+<?php $editing=true;require __DIR__.'/add-article.php';
