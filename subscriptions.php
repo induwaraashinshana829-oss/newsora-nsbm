@@ -1,4 +1,5 @@
-<?php require DIR.'/includes/functions.php';$u=require_user();$portal=true;$page='subscriptions';$title='Subscriptions';if($_SERVER['REQUEST_METHOD']==='POST'){check_csrf();$cats=array_values(array_intersect(categories(),(array)($_POST['categories']??[])));$s=db()->prepare('INSERT INTO preferences(user_id,categories,notifications) VALUES(?,?,?) ON CONFLICT(user_id) DO UPDATE SET categories=excluded.categories,notifications=excluded.notifications');$s->execute([$u['id'],json_encode($cats),isset($_POST['notifications'])?'1':'0']);flash('Preferences saved. Your category subscriptions are up to date.');go('subscriptions.php');}$s=db()->prepare('SELECT * FROM preferences WHERE user_id=?');$s->execute([$u['id']]);$prefs=$s->fetch(PDO::FETCH_ASSOC)?:['categories'=>'["Academic","Events"]','notifications'=>'1'];$active=json_decode($prefs['categories'],true);require DIR.'/includes/header.php'; ?>
+<?php require __DIR__.'/includes/functions.php';$u=require_user();$portal=true;$page='subscriptions';$title='Subscriptions';if($_SERVER['REQUEST_METHOD']==='POST'){check_csrf();$cats=array_values(array_intersect(categories(),(array)($_POST['categories']??[])));$s=db()->prepare('INSERT INTO preferences(user_id,categories,notifications) VALUES(?,?,?) ON CONFLICT(user_id) DO UPDATE SET categories=excluded.categories,notifications=excluded.notifications');$s->execute([$u['id'],json_encode($cats),isset($_POST['notifications'])?'1':'0']);flash('Preferences saved. Your category subscriptions are up to date.');go('subscriptions.php');}$s=db()->prepare('SELECT * FROM preferences WHERE user_id=?');$s->execute([$u['id']]);$prefs=$s->fetch(PDO::FETCH_ASSOC)?:['categories'=>'["Academic","Events"]','notifications'=>'1'];$active=json_decode($prefs['categories'],true);require __DIR__.'/includes/header.php'; ?>
+
 <main id="main" class="page-content">
 <div class="page-heading">
 <h1>Subscriptions</h1>
@@ -70,4 +71,4 @@
 </section>
 </form>
 </main>
-<?php require DIR.'/includes/footer.php'; ?>
+<?php require __DIR__.'/includes/footer.php'; ?>
