@@ -1,13 +1,7 @@
 <?php
-<<<<<<< HEAD
 require __DIR__.'/includes/functions.php';$u=require_user();$portal=true;$page='settings';$title='Profile and settings';$error='';
 if($_SERVER['REQUEST_METHOD']==='POST'){check_csrf();$action=$_POST['action']??'';if($action==='profile'){$name=trim($_POST['name']??'');$bio=trim($_POST['bio']??'');$faculty=$_POST['faculty']??'';if($name===''||mb_strlen($bio)>250||!in_array($faculty,['Computing','Business','Engineering','Science']))$error='Enter a name, valid faculty, and a bio up to 250 characters.';else{$s=db()->prepare('UPDATE users SET name=?,faculty=?,bio=? WHERE id=?');$s->execute([$name,$faculty,$bio,$u['id']]);flash('Your profile has been updated.');go('settings.php');}}elseif($action==='password'){$pass=$_POST['new_password']??'';if(!password_verify($_POST['current_password']??'',$u['password']))$error='Your current password is incorrect.';elseif(strlen($pass)<8||!preg_match('/[0-9]/',$pass))$error='Use at least 8 characters with a number.';elseif($pass!==($_POST['confirm_password']??''))$error='Your new passwords do not match.';else{$s=db()->prepare('UPDATE users SET password=? WHERE id=?');$s->execute([password_hash($pass,PASSWORD_DEFAULT),$u['id']]);session_regenerate_id(true);flash('Your password has been updated.');go('settings.php');}}}
 require __DIR__.'/includes/header.php'; ?>
-=======
-require DIR.'/includes/functions.php';$u=require_user();$portal=true;$page='settings';$title='Profile and settings';$error='';
-if($_SERVER['REQUEST_METHOD']==='POST'){check_csrf();$action=$_POST['action']??'';if($action==='profile'){$name=trim($_POST['name']??'');$bio=trim($_POST['bio']??'');$faculty=$_POST['faculty']??'';if($name===''mb_strlen($bio)>250!in_array($faculty,['Computing','Business','Engineering','Science']))$error='Enter a name, valid faculty, and a bio up to 250 characters.';else{$s=db()->prepare('UPDATE users SET name=?,faculty=?,bio=? WHERE id=?');$s->execute([$name,$faculty,$bio,$u['id']]);flash('Your profile has been updated.');go('settings.php');}}elseif($action==='password'){$pass=$_POST['new_password']??'';if(!password_verify($_POST['current_password']??'',$u['password']))$error='Your current password is incorrect.';elseif(strlen($pass)<8||!preg_match('/[0-9]/',$pass))$error='Use at least 8 characters with a number.';elseif($pass!==($_POST['confirm_password']??''))$error='Your new passwords do not match.';else{$s=db()->prepare('UPDATE users SET password=? WHERE id=?');$s->execute([password_hash($pass,PASSWORD_DEFAULT),$u['id']]);session_regenerate_id(true);flash('Your password has been updated.');go('settings.php');}}}
-require DIR.'/includes/header.php'; ?>
->>>>>>> 607eeb4a5e038a4b2e8a98b9ec3508664dec8272
 <main id="main" class="page-content">
 <div class="page-heading">
 <span class="eyebrow">ACCOUNT / PREFERENCES</span>
@@ -108,8 +102,4 @@ require DIR.'/includes/header.php'; ?>
 </section>
 </div>
 </main>
-<<<<<<< HEAD
 <?php require __DIR__.'/includes/footer.php'; ?>
-=======
-<?php require DIR.'/includes/footer.php'; ?>
->>>>>>> 607eeb4a5e038a4b2e8a98b9ec3508664dec8272

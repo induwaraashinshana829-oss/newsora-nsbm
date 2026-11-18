@@ -34,4 +34,8 @@
 <a class="button" href="<?=url('browse.php')?>">Browse news</a>
 </div>
 </main>
+HEAD
 <?php require __DIR__.'/includes/footer.php'; ?>
+
+<?php require __DIR__.'/includes/footer.php'; ?>
+271cd20441ea6ee5f449bbdbd84fe9f0d83e8580
